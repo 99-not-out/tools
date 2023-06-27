@@ -1,0 +1,19 @@
+fd -td | fzf --height=100% --border=sharp \
+--preview='tree -C {}' --preview-window='45%,border-sharp' \
+--prompt='Dirs > ' \
+--bind='tab:replace-query' \
+--bind='enter:execute(vi -u ~/.ubervimrc {+})' \
+--bind='ctrl-p:toggle-preview' \
+--bind='ctrl-d:change-prompt(Dirs > )' \
+--bind='ctrl-d:+reload(fd -td)' \
+--bind='ctrl-d:+change-preview(tree -C {})' \
+--bind='ctrl-d:+refresh-preview' \
+--bind='ctrl-f:change-prompt(Files > )' \
+--bind='ctrl-f:+reload(fd -tf)' \
+--bind='ctrl-f:+change-preview(cat {})' \
+--bind='ctrl-f:+refresh-preview' \
+--header '
+CTRL-D to display directories | CTRL-F to display files
+ENTER to edit | TAB to replace query with current selection
+CTRL-P to toggle preview
+'

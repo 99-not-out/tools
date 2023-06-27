@@ -1,0 +1,17 @@
+#!/bin/bash
+print_row=$1
+awk \
+'
+  NR==1 {head = $0}
+  NR=='$print_row' {row=$0; exit}
+  END {print head; print row}
+' \
+| csv-strip \
+| awk -F, -v OFS='|' \
+'
+  NR==1 {for (i=1; i<=NF; ++i) h[i]=$i}
+  NR==2 {for (i=1; i<=NF; ++i) r[i]=$i}
+  END {for (k in h) print "\033[1m"h[k]"\033[0m",r[k]}
+' \
+| column -ts'|'
+
